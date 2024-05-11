@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.TilePane?>
+
+<BorderPane prefHeight="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.lefarwestenperil.sae2_04.Controleur.Controleur">
+    <center>
+        <Pane fx:id="panneauDeJeu" prefHeight="800.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+            <children>
+                <TilePane fx:id="tuile" prefHeight="800.0" prefWidth="800.0" prefColumns="100" prefRows="22" prefTileHeight="32.0" prefTileWidth="32.0" BorderPane.alignment="CENTER" />
+            </children>
+        </Pane>
+    </center>
+</BorderPane>
