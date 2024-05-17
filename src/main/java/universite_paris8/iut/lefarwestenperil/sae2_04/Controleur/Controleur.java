@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.input.KeyEvent;
+import universite_paris8.iut.lefarwestenperil.sae2_04.Vue.LinkVue;
 import universite_paris8.iut.lefarwestenperil.sae2_04.Vue.PersonnageVue;
 import universite_paris8.iut.lefarwestenperil.sae2_04.Vue.TerrainVue;
 
@@ -30,7 +31,7 @@ public class Controleur implements Initializable {
         terrain = new Terrain();
         personnage = new Personnage(336, 16, terrain);
         TerrainVue tv = new TerrainVue(terrain, tuile);
-        personnageVue = new PersonnageVue(terrain, panneauDeJeu);
+        personnageVue = new LinkVue(terrain, panneauDeJeu);
         tv.creerCarte();
 
         personnageVue.creerPersonnage(personnage);
