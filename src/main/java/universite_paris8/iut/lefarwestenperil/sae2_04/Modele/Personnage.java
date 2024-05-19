@@ -27,6 +27,12 @@ public class Personnage {
         this.terrain = terrain;
     }
 
+    public Personnage(int x, int y, Terrain terrain) {
+        this.x = new SimpleIntegerProperty(x);
+        this.y = new SimpleIntegerProperty(y);
+        this.terrain = terrain;
+    }
+
     public IntegerProperty xProperty() {
         return x;
     }

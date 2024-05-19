@@ -33,6 +33,7 @@ public class Controleur implements Initializable {
         TerrainVue tv = new TerrainVue(terrain, tuile);
         personnageVue = new LinkVue(terrain, panneauDeJeu);
         tv.creerCarte();
+       // tv.afficherTerrain();
 
         personnageVue.creerPersonnage(personnage);
 
