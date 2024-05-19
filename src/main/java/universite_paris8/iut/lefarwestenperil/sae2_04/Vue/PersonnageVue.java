@@ -10,6 +10,7 @@ public abstract class PersonnageVue {
     private Pane panneauDeJeu;
     private Terrain terrain;
 
+
     public PersonnageVue(Terrain terrain, Pane panneauDeJeu) {
         this.terrain = terrain;
         this.panneauDeJeu = panneauDeJeu;
