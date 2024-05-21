@@ -1,5 +1,7 @@
-package universite_paris8.iut.lefarwestenperil.sae2_04.Modele;
-import javafx.scene.layout.TilePane;
+package universite_paris8.iut.lefarwestenperil.sae2_04.algos;
+import universite_paris8.iut.lefarwestenperil.sae2_04.Modele.Sommet;
+import universite_paris8.iut.lefarwestenperil.sae2_04.Modele.Terrain;
+import universite_paris8.iut.lefarwestenperil.sae2_04.algos.SommetCout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,21 +19,21 @@ public class Bfs {
         /**
          * Le sommet source de l'algo
          */
-        private SommetCout source;
+        private Sommet source;
         /**
          * Liste des sommets de la composante connexe de g obtenue par un parcours en largeur depuis le sommet source
          */
-        private ArrayList<SommetCout> parcours;
+        private ArrayList<Sommet> parcours;
         /**
          * Chaque sommet (clé) est associé à son prédécesseur (valeur) du parcours en largeur
          */
-        private Map<SommetCout, SommetCout> predecesseurs;
+        private Map<Sommet, Sommet> predecesseurs;
 
-        public BFS(Terrain t, SommetCout source) {
+        public BFS(Terrain t, Sommet source) {
             this.t = t;
             this.source = source;
             parcours = new ArrayList<>();
-            predecesseurs = new HashMap<SommetCout, SommetCout>();
+            predecesseurs = new HashMap<Sommet, Sommet>();
             algoBFS();
         }
 
@@ -41,13 +43,13 @@ public class Bfs {
          * sommet source est le sommet null
          */
         private void algoBFS() {
-            LinkedList<SommetCout> fifo = new LinkedList<>();
+            LinkedList<Sommet> fifo = new LinkedList<>();
             // TODO
             predecesseurs.put(source, null); // Null représente le prédécesseur et source son succeseur
             fifo.add(source);
             while(!fifo.isEmpty())  {
-                SommetCout courant = fifo.poll();
-                for(SommetCout voisin : this.t.adjacents(courant.getS())) {
+                Sommet courant = fifo.poll();
+                for(Sommet voisin : this.t.adjacents(courant)){
                     if(!predecesseurs.containsKey(voisin)) {
                         predecesseurs.put(voisin,courant);
                         fifo.add(voisin);
@@ -64,8 +66,8 @@ public class Bfs {
          * @param cible
          * @return le chemin sous forme de liste de sommets
          */
-        public ArrayList<SommetCout> cheminVersSource(SommetCout cible) {
-            ArrayList<SommetCout> chemin = new ArrayList<>();
+        public ArrayList<Sommet> cheminVersSource(Sommet cible) {
+            ArrayList<Sommet> chemin = new ArrayList<>();
             // TODO
 
             while(predecesseurs.get(cible) != null) {
@@ -79,11 +81,11 @@ public class Bfs {
          **** Pas de modifications à faire ci-dessous ****
          *************************************************/
 
-        public ArrayList<SommetCout> getParcours() {
+        public ArrayList<Sommet> getParcours() {
             return parcours;
         }
 
-        public Map<SommetCout, SommetCout> getPredecesseurs() {
+        public Map<Sommet, Sommet> getPredecesseurs() {
             return predecesseurs;
         }
 
@@ -93,7 +95,7 @@ public class Bfs {
          * @param source
          *            le nouveau sommet source
          */
-        public void setSource(SommetCout source) {
+        public void setSource(Sommet source) {
             this.source = source;
             clear();
             algoBFS();

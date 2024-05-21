@@ -1,19 +1,23 @@
 package universite_paris8.iut.lefarwestenperil.sae2_04.Modele;
 
+import javafx.collections.ObservableList;
+import javafx.scene.layout.TilePane;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Terrain {
 
     private int [][] tab;
-
+    private Map<TilePane, Set<TilePane>> listeAdj;
+    private ObservableList<TilePane> obstacles;
     public Terrain() {
         chargerTerrain();
     }
+
 
     private void chargerTerrain() {
         List<int[]> lignes = new ArrayList<>();
@@ -43,6 +47,15 @@ public class Terrain {
     public int getLargeur() {
         return tab[0].length;
     }
+    public boolean estDeconnecte(Sommet s) {
+        return this.obstacles.contains(s);
+    }
+    public Set<universite_paris8.iut.lefarwestenperil.sae2_04.Modele.Sommet>adjacents(Sommet s) {
+        return (Set)(!this.estDeconnecte(s) ? (Set)this.listeAdj.get(s) : new HashSet());
+    }
+
+
+
 
     public boolean estMarchable(int y, int x) {
         if (x >= 0 && x < getLargeur() && y >= 0 && y < getHauteur()) {
