@@ -6,7 +6,7 @@ import javafx.scene.shape.Circle;
 import universite_paris8.iut.lefarwestenperil.sae2_04.Modele.Personnage;
 import universite_paris8.iut.lefarwestenperil.sae2_04.Modele.Terrain;
 
-public class LinkVue extends PersonnageVue {
+public abstract class LinkVue extends PersonnageVue {
 
 
     public LinkVue(Terrain terrain, Pane panneauDeJeu) {
@@ -20,4 +20,6 @@ public class LinkVue extends PersonnageVue {
         circle.translateYProperty().bind(personnage.yProperty());
         super.getPanneauDeJeu().getChildren().add(circle);
     }
+
+
 }

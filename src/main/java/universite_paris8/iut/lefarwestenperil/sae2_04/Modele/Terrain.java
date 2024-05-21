@@ -54,10 +54,10 @@ public class Terrain {
         }
         return false;
     }
-    public boolean estDeconnecte(TilePane s) {
+    public boolean estDeconnecte(Sommet s) {
         return this.obstacles.contains(s);
     }
-    public Set<TilePane> adjacents(TilePane s) {
+    public Set<Sommet> adjacents(Sommet s) {
         return (Set)(!this.estDeconnecte(s) ? (Set)this.listeAdj.get(s) : new HashSet());
     }
 }

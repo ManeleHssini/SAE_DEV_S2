@@ -11,15 +11,15 @@ import javafx.scene.layout.Pane;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.input.KeyEvent;
-import universite_paris8.iut.lefarwestenperil.sae2_04.Vue.LinkVue;
-import universite_paris8.iut.lefarwestenperil.sae2_04.Vue.PersonnageVue;
-import universite_paris8.iut.lefarwestenperil.sae2_04.Vue.TerrainVue;
+import universite_paris8.iut.lefarwestenperil.sae2_04.Vue.*;
 
 public class Controleur implements Initializable {
     private Terrain terrain;
     private Timeline gameLoop;
 
     private Personnage personnage;
+    private Personnage personnage1;
+    private Personnage personnage2;
     private PersonnageVue personnageVue;
     @FXML
     private Pane panneauDeJeu;
@@ -31,11 +31,28 @@ public class Controleur implements Initializable {
         terrain = new Terrain();
         personnage = new Personnage(336, 16, terrain);
         TerrainVue tv = new TerrainVue(terrain, tuile);
-        personnageVue = new LinkVue(terrain, panneauDeJeu);
+        personnageVue = new LinkVue(terrain, panneauDeJeu) {
+
+        };
+
+        personnage1 = new Personnage(300, 40, terrain);
+        personnageVue = new CowBoyVue(terrain, panneauDeJeu) {
+
+
+        };
+
+        personnage2 = new Personnage(500, 50, terrain);
+    personnageVue = new DragonVue(terrain, panneauDeJeu) {
+
+
+
+    };
         tv.creerCarte();
        // tv.afficherTerrain();
 
         personnageVue.creerPersonnage(personnage);
+        personnageVue.creerPersonnage(personnage1);
+        personnageVue.creerPersonnage(personnage2);
 
 //        panneauDeJeu.setOnKeyPressed(event -> {
 //            gererTouchePressee(event);

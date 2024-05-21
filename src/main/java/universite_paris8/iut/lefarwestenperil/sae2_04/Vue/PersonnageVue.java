@@ -20,4 +20,5 @@ public abstract class PersonnageVue {
     }
 
     public abstract void creerPersonnage(Personnage personnage);
+
 }

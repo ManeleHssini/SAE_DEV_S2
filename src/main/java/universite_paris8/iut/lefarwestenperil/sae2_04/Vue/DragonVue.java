@@ -6,7 +6,7 @@ import javafx.scene.shape.Circle;
 import universite_paris8.iut.lefarwestenperil.sae2_04.Modele.Personnage;
 import universite_paris8.iut.lefarwestenperil.sae2_04.Modele.Terrain;
 
-public class DragonVue extends EnnemiVue{
+public abstract class DragonVue extends EnnemiVue{
     public DragonVue(Terrain terrain, Pane panneauDeJeu) {
         super(terrain, panneauDeJeu);
     }

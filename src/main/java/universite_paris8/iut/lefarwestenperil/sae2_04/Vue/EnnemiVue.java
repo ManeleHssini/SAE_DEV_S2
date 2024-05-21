@@ -9,5 +9,4 @@ public abstract class EnnemiVue extends PersonnageVue{
         super(terrain, panneauDeJeu);
     }
 
-
 }

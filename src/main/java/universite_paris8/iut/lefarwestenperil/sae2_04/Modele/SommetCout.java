@@ -12,7 +12,7 @@ public class SommetCout implements Comparable<SommetCout> {
      */
 
 
-        private TilePane s;
+        private Sommet s;
         private double cout;
 
         /**
@@ -21,7 +21,7 @@ public class SommetCout implements Comparable<SommetCout> {
          * @param s
          * @param cout
          */
-        public SommetCout(TilePane s, double cout) {
+        public SommetCout(Sommet s, double cout) {
             super();
             this.s = s;
             this.cout = cout;
@@ -38,7 +38,7 @@ public class SommetCout implements Comparable<SommetCout> {
         /**
          * Retourne le sommet correspondant
          */
-        public TilePane getS() {
+        public Sommet getS() {
             return s;
         }
 
