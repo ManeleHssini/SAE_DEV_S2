@@ -6,8 +6,7 @@ import javafx.scene.shape.Circle;
 import universite_paris8.iut.lefarwestenperil.sae2_04.Modele.Personnage;
 import universite_paris8.iut.lefarwestenperil.sae2_04.Modele.Terrain;
 
-public class CowBoyVue extends PersonnageVue {
-
+public class CowBoyVue extends EnnemiVue{
     public CowBoyVue(Terrain terrain, Pane panneauDeJeu) {
         super(terrain, panneauDeJeu);
     }
