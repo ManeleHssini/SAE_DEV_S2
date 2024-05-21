@@ -4,6 +4,8 @@ public class Feu extends Arme {
     public Feu() {
         super(16);
     }
+
+
     public String toString() {
         return "Feu : " + super.toString();
     }
