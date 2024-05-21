@@ -5,22 +5,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import universite_paris8.iut.lefarwestenperil.sae2_04.Modele.Personnage;
-import universite_paris8.iut.lefarwestenperil.sae2_04.Modele.Terrain;
+import universite_paris8.iut.lefarwestenperil.sae2_04.Modele.*;
 import javafx.scene.layout.Pane;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.input.KeyEvent;
-import universite_paris8.iut.lefarwestenperil.sae2_04.Vue.LinkVue;
-import universite_paris8.iut.lefarwestenperil.sae2_04.Vue.PersonnageVue;
-import universite_paris8.iut.lefarwestenperil.sae2_04.Vue.TerrainVue;
+import universite_paris8.iut.lefarwestenperil.sae2_04.Vue.*;
 
 public class Controleur implements Initializable {
     private Terrain terrain;
     private Timeline gameLoop;
 
-    private Personnage personnage;
-    private PersonnageVue personnageVue;
+    private Link link;
+    private LinkVue linkVue;
+    private CowBoyVue cowboyVue;
+    private Cowboy cowboy;
+    private Dragon dragon;
+    private DragonVue dragonVue;
     @FXML
     private Pane panneauDeJeu;
     @FXML
@@ -29,14 +30,18 @@ public class Controleur implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         terrain = new Terrain();
-        personnage = new Personnage(336, 16, terrain);
+        link = new Link( terrain);
+        cowboy = new Cowboy(terrain);
+        dragon = new Dragon(terrain);
         TerrainVue tv = new TerrainVue(terrain, tuile);
-        personnageVue = new LinkVue(terrain, panneauDeJeu);
+        linkVue = new LinkVue(terrain, panneauDeJeu);
+        cowboyVue = new CowBoyVue(terrain, panneauDeJeu);
+        dragonVue = new DragonVue(terrain, panneauDeJeu);
         tv.creerCarte();
-       // tv.afficherTerrain();
 
-        personnageVue.creerPersonnage(personnage);
-
+        linkVue.creerPersonnage(link);
+        cowboyVue.creerPersonnage(cowboy);
+        dragonVue.creerPersonnage(dragon);
 //        panneauDeJeu.setOnKeyPressed(event -> {
 //            gererTouchePressee(event);
 //        });
@@ -56,21 +61,21 @@ public class Controleur implements Initializable {
         System.out.println("Touche pressée: " + event.getCode());
         switch (event.getCode()) {
             case Z:
-                personnage.deplacerHaut();
+                link.deplacerHaut();
                 break;
             case Q:
-                personnage.deplacerGauche();
+                link.deplacerGauche();
                 break;
             case S:
-                personnage.deplacerBas();
+                link.deplacerBas();
                 break;
             case D:
-                personnage.deplacerDroite();
+                link.deplacerDroite();
                 break;
             default:
                 return;
         }
-        System.out.println("Position du personnage: x=" + personnage.getX() + ", y=" + personnage.getY());
+        System.out.println("Position du personnage: x=" + link.getX() + ", y=" + link.getY());
     }
 
     private void initAnimation() {

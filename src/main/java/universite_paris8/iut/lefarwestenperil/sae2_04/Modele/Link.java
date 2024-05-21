@@ -4,7 +4,7 @@ public class Link extends Personnage{
 
 
     public Link(Terrain terrain) {
-        super(100, 10,5,2,1, terrain);
+        super(336, 16,5,2,1, terrain);
         super.ramasserArme(new Pistolet());
 
     }
