@@ -10,6 +10,8 @@ public class Personnage {
     private int pointVie;
     private int pointAttaque;
     private int pointDefense;
+    private Environnement env;
+
     private ArrayList<Arme> armes;
     private Arme armeActuelle;
     private IntegerProperty x, y;

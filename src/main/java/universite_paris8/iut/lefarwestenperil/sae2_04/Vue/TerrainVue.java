@@ -23,26 +23,38 @@ public class TerrainVue {
 
 
     public void creerCarte() {
+        URL urlImageSol = Main.class.getResource("sand_mountain_image_32x32.png");
+        Image imageSol = new Image(String.valueOf(urlImageSol));
+
+        URL urlImageSol2 = Main.class.getResource("eauu.png");
+        Image imageSol2 = new Image(String.valueOf(urlImageSol2));
+
+        URL urlImageSol4 = Main.class.getResource("textured_sand_image_32x32.png");
+        Image imageSol4 = new Image(String.valueOf(urlImageSol4));
+
 
         for (int i = 0; i < terrain.getTab().length; i++) {
             for (int j = 0; j < terrain.getTab()[i].length; j++) {
-                Rectangle rectangle = new Rectangle(32, 32);
+
 
                 if (terrain.getTab()[i][j] == 0) {
-                    rectangle.setFill(Color.YELLOW);
-                    tuile.getChildren().add(rectangle);
+                    ImageView iv2 = new ImageView(imageSol4);
+                    this.tuile.getChildren().add(iv2);
                 } else if (terrain.getTab()[i][j] == 1) {
-                    rectangle.setFill(Color.CORAL);
-                    tuile.getChildren().add(rectangle);
+                    ImageView iv1 = new ImageView(imageSol);
+                    this.tuile.getChildren().add(iv1);
+
                 } else if (terrain.getTab()[i][j] == 2) {
-                    rectangle.setFill(Color.BROWN);
-                    tuile.getChildren().add(rectangle);
+                    Rectangle rectangle = new Rectangle(32, 32);
+                    rectangle.setFill(Color.BLACK);
+                    this.tuile.getChildren().add(rectangle);
                 } else if (terrain.getTab()[i][j] == 3) {
+                    Rectangle rectangle = new Rectangle(32, 32);
                     rectangle.setFill(Color.GREEN);
-                    tuile.getChildren().add(rectangle);
+                    this.tuile.getChildren().add(rectangle);
                 } else {
-                    rectangle.setFill(Color.BLUE);
-                    tuile.getChildren().add(rectangle);
+                    ImageView iv4 = new ImageView(imageSol2);
+                    this.tuile.getChildren().add(iv4);
                 }
             }
         }

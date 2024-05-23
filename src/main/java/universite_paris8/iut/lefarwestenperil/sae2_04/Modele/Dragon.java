@@ -6,8 +6,5 @@ public class Dragon extends Ennemi {
         super.ramasserArme(new Feu());
     }
 
-    @Override
-    public void crie() {
-        System.out.println("Roar!");
-    }
+
 }

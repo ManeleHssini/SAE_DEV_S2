@@ -1,23 +1,29 @@
 package universite_paris8.iut.lefarwestenperil.sae2_04.Vue;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import universite_paris8.iut.lefarwestenperil.sae2_04.Main;
 import universite_paris8.iut.lefarwestenperil.sae2_04.Modele.Personnage;
 import universite_paris8.iut.lefarwestenperil.sae2_04.Modele.Terrain;
 
+import java.net.URL;
+
 public class CowBoyVue extends EnnemiVue{
+
+    private Image imageCowboy;
+    private ImageView iv1;
     public CowBoyVue(Terrain terrain, Pane panneauDeJeu) {
         super(terrain, panneauDeJeu);
+        URL urlImageEnn = Main.class.getResource("pixil-frame-0.png");
+        imageCowboy = new Image(String.valueOf(urlImageEnn));
     }
-
-    @Override
     public void creerPersonnage(Personnage personnage) {
-        Circle circle = new Circle(7, Color.BLACK);
-        circle.translateXProperty().bind(personnage.xProperty());
-        circle.translateYProperty().bind(personnage.yProperty());
-        super.getPanneauDeJeu().getChildren().add(circle);
+        iv1 = new ImageView(imageCowboy);
+        iv1.translateXProperty().bind(personnage.xProperty());
+        iv1.translateYProperty().bind(personnage.yProperty());
+        super.getPanneauDeJeu().getChildren().add(iv1);
     }
 }
-
-
