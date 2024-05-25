@@ -15,9 +15,10 @@ public class CowBoyVue extends EnnemiVue{
 
     private Image imageCowboy;
     private ImageView iv1;
+
     public CowBoyVue(Terrain terrain, Pane panneauDeJeu) {
         super(terrain, panneauDeJeu);
-        URL urlImageEnn = Main.class.getResource("pixil-frame-0.png");
+        URL urlImageEnn = Main.class.getResource("CowBoy.png");
         imageCowboy = new Image(String.valueOf(urlImageEnn));
     }
     public void creerPersonnage(Personnage personnage) {
