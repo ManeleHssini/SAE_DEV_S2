@@ -3,10 +3,10 @@
  <editorsettings>
   <export target="../terrainzelda..tmj" format="json"/>
  </editorsettings>
- <tileset firstgid="1" source="../../../dune.tsx"/>
- <tileset firstgid="2" source="../../../sable.tsx"/>
- <tileset firstgid="3" source="../../../eau.tsx"/>
- <tileset firstgid="4" source="../../../troue.tsx"/>
+ <tileset firstgid="1" source="src/main/resources/universite_paris8/iut/lefarwestenperil/sae2_04/dune.tsx"/>
+ <tileset firstgid="2" source="src/main/resources/universite_paris8/iut/lefarwestenperil/sae2_04/sable.tsx"/>
+ <tileset firstgid="3" source="src/main/resources/universite_paris8/iut/lefarwestenperil/sae2_04/eau.tsx"/>
+ <tileset firstgid="4" source="src/main/resources/universite_paris8/iut/lefarwestenperil/sae2_04/troue.tsx"/>
  <layer id="1" name="Calque de Tuiles 1" width="50" height="50">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
