@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
- <editorsettings>
-  <export target="../terrainzelda..tmj" format="json"/>
- </editorsettings>
- <tileset firstgid="1" source="../../../dune.tsx"/>
- <tileset firstgid="2" source="../../../sable.tsx"/>
- <tileset firstgid="3" source="../../../eau.tsx"/>
- <tileset firstgid="4" source="../../../troue.tsx"/>
+ <tileset firstgid="1" source="../../dune.tsx"/>
+ <tileset firstgid="2" source="../../sable.tsx"/>
+ <tileset firstgid="3" source="../../eau.tsx"/>
+ <tileset firstgid="4" source="../../troue.tsx"/>
  <layer id="1" name="Calque de Tuiles 1" width="50" height="50">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,

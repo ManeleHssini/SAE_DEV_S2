@@ -24,7 +24,7 @@ public class TerrainVue {
     public void creerCarte() {
         try {
             // Chargement du fichier TMX créé avec Tiled
-            FileInputStream inputStream = new FileInputStream("src/main/resources/universite_paris8/iut/lefarwestenperil/sae2_04/terrainzelda.tmx");
+            FileInputStream inputStream = new FileInputStream("src/main/resources/universite_paris8/iut/lefarwestenperil/sae2_04/terrainzelda2.tmx");
             Image imageSol = new Image(inputStream);
 
             // Parcours du tableau de terrain
