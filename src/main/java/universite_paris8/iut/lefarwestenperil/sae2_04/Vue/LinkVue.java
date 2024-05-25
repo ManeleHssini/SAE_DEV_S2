@@ -17,7 +17,7 @@ public class LinkVue extends PersonnageVue {
 
     public LinkVue(Terrain terrain, Pane panneauDeJeu) {
         super(terrain, panneauDeJeu);
-        URL urlImageEnn = Main.class.getResource("pixilart-drawing.png");
+        URL urlImageEnn = Main.class.getResource("link.png");
         imageLink = new Image(String.valueOf(urlImageEnn));
     }
 

@@ -31,11 +31,9 @@ public class TerrainVue {
 
         URL urlImageSol4 = Main.class.getResource("textured_sand_image_32x32.png");
         Image imageSol4 = new Image(String.valueOf(urlImageSol4));
-
-
+        
         for (int i = 0; i < terrain.getTab().length; i++) {
             for (int j = 0; j < terrain.getTab()[i].length; j++) {
-
 
                 if (terrain.getTab()[i][j] == 0) {
                     ImageView iv2 = new ImageView(imageSol4);
