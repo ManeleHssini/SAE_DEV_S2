@@ -18,7 +18,7 @@ public class DragonVue extends EnnemiVue {
 
     public DragonVue(Terrain terrain, Pane panneauDeJeu) {
         super(terrain, panneauDeJeu);
-        URL urlImageEnn = Main.class.getResource("pixil-frame-0.png");
+        URL urlImageEnn = Main.class.getResource("dragon.png");
         imageDragon = new Image(String.valueOf(urlImageEnn));
     }
     public void creerPersonnage(Personnage personnage) {
