@@ -20,7 +20,7 @@ public class Main extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("vue1.fxml"));
         ScrollPane scrollPane = new ScrollPane();
-        Scene scene = new Scene(fxmlLoader.load(),800 , 800);
+        Scene scene = new Scene(fxmlLoader.load(),1536 , 800);
         stage.setTitle("LeFar West en Péril");
         stage.setScene(scene);
         stage.show();

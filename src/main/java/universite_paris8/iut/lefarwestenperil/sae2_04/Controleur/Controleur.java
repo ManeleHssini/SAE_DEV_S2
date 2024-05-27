@@ -1,6 +1,7 @@
 package universite_paris8.iut.lefarwestenperil.sae2_04.Controleur;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.TilePane;
@@ -15,13 +16,9 @@ import universite_paris8.iut.lefarwestenperil.sae2_04.Vue.*;
 public class Controleur implements Initializable {
     private Terrain terrain;
     private Timeline gameLoop;
-
+    private Environnement env;
     private Link link;
     private LinkVue linkVue;
-    private CowBoyVue cowboyVue;
-    private Cowboy cowboy;
-    private Dragon dragon;
-    private DragonVue dragonVue;
     @FXML
     private Pane panneauDeJeu;
     @FXML
@@ -31,20 +28,18 @@ public class Controleur implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         terrain = new Terrain();
         link = new Link( terrain);
-        cowboy = new Cowboy(terrain);
-        dragon = new Dragon(terrain);
+
+        env = new Environnement(terrain);
+
         TerrainVue tv = new TerrainVue(terrain, tuile);
-        linkVue = new LinkVue(terrain, panneauDeJeu);
-        cowboyVue = new CowBoyVue(terrain, panneauDeJeu);
-        dragonVue = new DragonVue(terrain, panneauDeJeu);
+        linkVue = new LinkVue(panneauDeJeu);
+
         tv.creerCarte();
 
-        linkVue.creerPersonnage(link);
-        cowboyVue.creerPersonnage(cowboy);
-        dragonVue.creerPersonnage(dragon);
-//        panneauDeJeu.setOnKeyPressed(event -> {
-//            gererTouchePressee(event);
-//        });
+        linkVue.creerLink(link);
+
+        ListChangeListener<Ennemi> listenE = new ListObsEnnemis(panneauDeJeu);
+        env.getEnnemis().addListener(listenE);
 
         panneauDeJeu.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene != null) {
@@ -81,16 +76,15 @@ public class Controleur implements Initializable {
         System.out.println("Position du personnage: x=" + link.getX() + ", y=" + link.getY());
     }
 
-
-
     private void initAnimation() {
         gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.1),
-                (ev ->{cowboy.seDeplacerAlea();
-                dragon.seDeplacerAlea();})
+                (ev ->{
+                    env.unTour();
+                })
         );
         gameLoop.getKeyFrames().add(kf);
     }

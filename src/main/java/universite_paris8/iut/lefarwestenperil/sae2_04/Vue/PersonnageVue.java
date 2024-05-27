@@ -8,12 +8,11 @@ public abstract class PersonnageVue {
     private Pane panneauDeJeu;
 
 
-    public PersonnageVue(Terrain terrain, Pane panneauDeJeu) {
+    public PersonnageVue(Pane panneauDeJeu) {
         this.panneauDeJeu = panneauDeJeu;
     }
     public Pane getPanneauDeJeu() {
         return this.panneauDeJeu;
     }
 
-    public abstract void creerPersonnage(Personnage personnage);
 }

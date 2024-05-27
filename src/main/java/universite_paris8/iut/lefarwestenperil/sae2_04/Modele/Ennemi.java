@@ -9,44 +9,42 @@ public abstract class Ennemi extends Personnage{
     private String id;
     private int tuileActuel;
     private BarreDeVie barreDeVie;
+    private int pixelsParcourus;
+    private int directionActuelle;
 
-    public Ennemi(int x, int y,int pointVie, int pointAttaque, int pointDefense,Terrain terrain/*,int vitesse*/ ) {
+    public Ennemi(int x, int y,int pointVie, int pointAttaque, int pointDefense,Terrain terrain, int vitesse) {
         super(x,y,pointVie, pointAttaque, pointDefense, terrain);
-
-
+        this.vitesse = vitesse;
+        this.id="E"+ compteurId;
+        compteurId++;
     }
 
+    public void deplacerEnCarre() {
+        int[][] directions = {{vitesse, 0}, {0, vitesse}, {-vitesse, 0}, {0, -vitesse}};
 
-    public void seDeplacerAlea() {
+        int newX = getX() + directions[directionActuelle][0];
+        int newY = getY() + directions[directionActuelle][1];
 
-        Random random = new Random();
-        int nposX, nposY;
-        int dx = random.nextInt(3)-1 ;
-        int dy = random.nextInt(3)-1 ;
-        nposY = this.getY() + dy * 4;
-        nposX = this.getX() + dx * 4;
-        if(super.estCorrect(nposX,nposY)) {
-            if (dx == 1) {
-                deplacerDroite();
-                System.out.println("D");
-            } else if (dx == -1) {
-                System.out.println("G");
-                deplacerGauche();
+        int caseX = newX / 32;
+        int caseY = newY / 32;
+
+        if (getTerrain().estMarchable(caseY, caseX)) {
+            setX(newX);
+            setY(newY);
+            pixelsParcourus += vitesse;
+
+            if (pixelsParcourus >= 32) {
+                directionActuelle = (directionActuelle + 1) % 4;
+                pixelsParcourus = 0;
             }
-            if (dy == 1) {
-                System.out.println("B");
-                deplacerBas();
-            } else if (dy == -1) {
-                System.out.println("H");
-                deplacerHaut();
-            }
-
+        } else {
+            directionActuelle = (directionActuelle + 1) % 4;
+            pixelsParcourus = 0;
         }
-        this.setX(nposX);
-        this.setY(nposY);
-
     }
 
-
+    public String getId() {
+        return id;
+    }
 
 }

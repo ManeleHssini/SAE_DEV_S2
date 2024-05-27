@@ -15,14 +15,13 @@ public class LinkVue extends PersonnageVue {
     private Image imageLink;
     private ImageView iv3;
 
-    public LinkVue(Terrain terrain, Pane panneauDeJeu) {
-        super(terrain, panneauDeJeu);
+    public LinkVue(Pane panneauDeJeu) {
+        super(panneauDeJeu);
         URL urlImageEnn = Main.class.getResource("link.png");
         imageLink = new Image(String.valueOf(urlImageEnn));
     }
 
-    @Override
-    public void creerPersonnage(Personnage personnage) {
+    public void creerLink(Personnage personnage) {
         iv3 = new ImageView(imageLink);
         iv3.translateXProperty().bind(personnage.xProperty());
         iv3.translateYProperty().bind(personnage.yProperty());

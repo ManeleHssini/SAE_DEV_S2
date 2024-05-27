@@ -16,15 +16,9 @@ public class DragonVue extends EnnemiVue {
     private Image imageDragon;
     private ImageView iv2;
 
-    public DragonVue(Terrain terrain, Pane panneauDeJeu) {
-        super(terrain, panneauDeJeu);
+    public DragonVue(Pane panneauDeJeu) {
+        super(panneauDeJeu);
         URL urlImageEnn = Main.class.getResource("dragon.png");
         imageDragon = new Image(String.valueOf(urlImageEnn));
-    }
-    public void creerPersonnage(Personnage personnage) {
-        iv2 = new ImageView(imageDragon);
-        iv2.translateXProperty().bind(personnage.xProperty());
-        iv2.translateYProperty().bind(personnage.yProperty());
-        super.getPanneauDeJeu().getChildren().add(iv2);
     }
 }
