@@ -29,13 +29,13 @@ public class TerrainVue {
         URL urlImageSol3 = Main.class.getResource("troue.png");
         Image imageSol3 = new Image(String.valueOf(urlImageSol3));
 
-        URL urlImageSol4 = Main.class.getResource("cactus (2).png");
+        URL urlImageSol4 = Main.class.getResource("cactus.png");
         Image imageSol4 = new Image(String.valueOf(urlImageSol4));
 
         URL urlImageSol5 = Main.class.getResource("eau.png");
         Image imageSol5 = new Image(String.valueOf(urlImageSol5));
 
-        URL urlImageSol6 = Main.class.getResource("tente1.png");
+        URL urlImageSol6 = Main.class.getResource("tente.png");
         Image imageSol6 = new Image(String.valueOf(urlImageSol6));
 
         for (int i = 0; i < terrain.getTab().length; i++) {

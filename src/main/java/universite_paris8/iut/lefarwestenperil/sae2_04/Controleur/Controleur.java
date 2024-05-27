@@ -54,6 +54,9 @@ public class Controleur implements Initializable {
 
         initAnimation();
         gameLoop.play();
+
+
+
     }
 
     @FXML
@@ -77,6 +80,8 @@ public class Controleur implements Initializable {
         }
         System.out.println("Position du personnage: x=" + link.getX() + ", y=" + link.getY());
     }
+
+
 
     private void initAnimation() {
         gameLoop = new Timeline();

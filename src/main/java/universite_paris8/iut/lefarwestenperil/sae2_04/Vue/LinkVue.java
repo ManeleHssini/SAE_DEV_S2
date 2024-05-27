@@ -26,6 +26,9 @@ public class LinkVue extends PersonnageVue {
         iv3 = new ImageView(imageLink);
         iv3.translateXProperty().bind(personnage.xProperty());
         iv3.translateYProperty().bind(personnage.yProperty());
+
+
         super.getPanneauDeJeu().getChildren().add(iv3);
     }
+
 }
