@@ -89,7 +89,8 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.1),
-                (ev ->{})
+                (ev ->{cowboy.seDeplacerAlea();
+                dragon.seDeplacerAlea();})
         );
         gameLoop.getKeyFrames().add(kf);
     }

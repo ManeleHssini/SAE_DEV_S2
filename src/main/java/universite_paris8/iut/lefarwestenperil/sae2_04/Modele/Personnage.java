@@ -11,7 +11,7 @@ public class Personnage {
     private int pointAttaque;
     private int pointDefense;
     private Environnement env;
-
+    private int vitesseDeplacement;
     private ArrayList<Arme> armes;
     private Arme armeActuelle;
     private IntegerProperty x, y;
@@ -27,13 +27,27 @@ public class Personnage {
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
         this.terrain = terrain;
+        this.vitesseDeplacement=4;
     }
+
 
     public Personnage(int x, int y, Terrain terrain) {
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
         this.terrain = terrain;
     }
+    public boolean estCorrect(int newX, int newY) {
+        int tileX = newX / tailleTuile;
+        int tileY = newY / tailleTuile;
+        int tileXRight = (newX + 13) / tailleTuile;
+        int tileYBottom = (newY + 18) / tailleTuile;
+
+        return getTerrain().estMarchable(tileY, tileX) &&
+                getTerrain().estMarchable(tileY, tileXRight) &&
+                getTerrain().estMarchable(tileYBottom, tileX) &&
+                getTerrain().estMarchable(tileYBottom, tileXRight);
+    }
+
 
     public IntegerProperty xProperty() {
         return x;
@@ -106,6 +120,35 @@ public class Personnage {
                 this.pointVie = 0;
             }
         }
+    }
+
+    public void deplacer(int dx, int dy) {
+        int newX = getX() + dx;
+        int newY = getY() + dy;
+
+        if (estCorrect(newX, newY)) {
+            setX(newX);
+            setY(newY);
+        } else if (dx != 0 && getX() % tailleTuile < 4) {
+            newX = getX() / tailleTuile * tailleTuile + 1;
+            setX(newX);
+        }
+    }
+
+    public void deplacerHaut() {
+        deplacer(0, -4);
+    }
+
+    public void deplacerBas() {
+        deplacer(0, 4);
+    }
+
+    public void deplacerGauche() {
+        deplacer(-4, 0);
+    }
+
+    public void deplacerDroite() {
+        deplacer(4, 0);
     }
 
     public Arme getArmeActuelle() {
