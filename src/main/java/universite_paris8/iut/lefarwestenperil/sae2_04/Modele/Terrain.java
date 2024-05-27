@@ -21,20 +21,27 @@ public class Terrain {
 
     private void chargerTerrain() {
         List<int[]> lignes = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader("terrain.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/universite_paris8/iut/lefarwestenperil/sae2_04/terrain.txt"))) {
             String ligne;
-            while ((ligne = reader.readLine()) != null) {
+            int cpt=0;
+            ligne = reader.readLine();
+            while (ligne != null) {
+                System.out.println(ligne);
                 String[] valeurs = ligne.split(",");
                 int[] ligneTab = new int[valeurs.length];
                 for (int i = 0; i < valeurs.length; i++) {
                     ligneTab[i] = Integer.parseInt(valeurs[i].trim());
                 }
                 lignes.add(ligneTab);
+                cpt++;
+                ligne= reader.readLine();
             }
             tab = lignes.toArray(new int[0][]); // Convert List to Array
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(tab.length+"  "+ tab[0].length);
     }
     public int[][] getTab() {
         return this.tab;

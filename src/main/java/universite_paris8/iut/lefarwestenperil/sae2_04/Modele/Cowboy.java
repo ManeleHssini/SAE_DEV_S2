@@ -7,8 +7,5 @@ public class Cowboy extends Ennemi {
         super.ramasserArme(new Lasso());
     }
 
-    @Override
-    public void crie() {
-        System.out.println("Yeehaw!");
-    }
+
 }
