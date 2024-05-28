@@ -41,6 +41,7 @@ public class Controleur implements Initializable {
         ListChangeListener<Ennemi> listenE = new ListObsEnnemis(panneauDeJeu);
         env.getEnnemis().addListener(listenE);
 
+        this.env.ajouterEnnemisAleatoirement(50);
         panneauDeJeu.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene != null) {
                 newScene.setOnKeyPressed(this::gererTouchePressee);
