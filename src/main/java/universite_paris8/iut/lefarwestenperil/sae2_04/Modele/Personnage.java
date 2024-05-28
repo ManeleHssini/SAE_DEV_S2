@@ -6,10 +6,12 @@ import javafx.beans.property.SimpleIntegerProperty;
 import java.util.ArrayList;
 
 public class Personnage {
-    private int tailleTuile = 32;
+    protected int tailleTuile = 32;
     private int pointVie;
     private int pointAttaque;
     private int pointDefense;
+    private Environnement env;
+    private int vitesseDeplacement;
     private ArrayList<Arme> armes;
     private Arme armeActuelle;
     private IntegerProperty x, y;
@@ -25,7 +27,9 @@ public class Personnage {
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
         this.terrain = terrain;
+        this.vitesseDeplacement=4;
     }
+
 
     public Personnage(int x, int y, Terrain terrain) {
         this.x = new SimpleIntegerProperty(x);
@@ -57,33 +61,10 @@ public class Personnage {
         this.yProperty().setValue(n);
     }
 
-    public void deplacerHaut() {
-        int newY = getY() - 4;
-        if (newY >= 7 && terrain.estMarchable((newY - 7) / tailleTuile, (getX() + 7) / tailleTuile) && terrain.estMarchable((newY - 7) / tailleTuile, (getX() - 7) / tailleTuile)) {
-            setY(newY);
-        }
+    public Terrain getTerrain() {
+        return terrain;
     }
 
-    public void deplacerBas() {
-        int newY = getY() + 4;
-        if (newY <= (terrain.getHauteur() * tailleTuile - 7) && terrain.estMarchable((newY + 7) / tailleTuile, (getX() + 7) / tailleTuile) && terrain.estMarchable((newY + 7) / tailleTuile, (getX() - 7) / tailleTuile)) {
-            setY(newY);
-        }
-    }
-
-    public void deplacerGauche() {
-        int newX = getX() - 4;
-        if (newX >= 7 && terrain.estMarchable((getY() + 7) / tailleTuile, (newX - 7) / tailleTuile) && terrain.estMarchable((getY() - 7) / tailleTuile, (newX - 7) / tailleTuile)) {
-            setX(newX);
-        }
-    }
-
-    public void deplacerDroite() {
-        int newX = getX() + 4;
-        if (newX <= (terrain.getLargeur() * tailleTuile - 7) && terrain.estMarchable((getY() + 7) / tailleTuile, (newX + 7) / tailleTuile) && terrain.estMarchable((getY() - 7) / tailleTuile, (newX + 7) / tailleTuile)) {
-            setX(newX);
-        }
-    }
     public void attaque(Personnage e) {
         int degat = this.pointAttaque;
         if (!this.armes.isEmpty()) {
@@ -140,5 +121,4 @@ public class Personnage {
                 '}';
     }
 }
-
 

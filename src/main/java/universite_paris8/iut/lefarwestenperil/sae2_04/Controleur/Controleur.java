@@ -1,26 +1,24 @@
 package universite_paris8.iut.lefarwestenperil.sae2_04.Controleur;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import universite_paris8.iut.lefarwestenperil.sae2_04.Modele.Personnage;
-import universite_paris8.iut.lefarwestenperil.sae2_04.Modele.Terrain;
+import universite_paris8.iut.lefarwestenperil.sae2_04.Modele.*;
 import javafx.scene.layout.Pane;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.input.KeyEvent;
-import universite_paris8.iut.lefarwestenperil.sae2_04.Vue.LinkVue;
-import universite_paris8.iut.lefarwestenperil.sae2_04.Vue.PersonnageVue;
-import universite_paris8.iut.lefarwestenperil.sae2_04.Vue.TerrainVue;
+import universite_paris8.iut.lefarwestenperil.sae2_04.Vue.*;
 
 public class Controleur implements Initializable {
     private Terrain terrain;
     private Timeline gameLoop;
-
-    private Personnage personnage;
-    private PersonnageVue personnageVue;
+    private Environnement env;
+    private Link link;
+    private LinkVue linkVue;
     @FXML
     private Pane panneauDeJeu;
     @FXML
@@ -29,18 +27,21 @@ public class Controleur implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         terrain = new Terrain();
-        personnage = new Personnage(336, 16, terrain);
+        link = new Link( terrain);
+
+        env = new Environnement(terrain);
+
         TerrainVue tv = new TerrainVue(terrain, tuile);
-        personnageVue = new LinkVue(terrain, panneauDeJeu);
+        linkVue = new LinkVue(panneauDeJeu);
+
         tv.creerCarte();
-       // tv.afficherTerrain();
 
-        personnageVue.creerPersonnage(personnage);
+        linkVue.creerLink(link);
 
-//        panneauDeJeu.setOnKeyPressed(event -> {
-//            gererTouchePressee(event);
-//        });
+        ListChangeListener<Ennemi> listenE = new ListObsEnnemis(panneauDeJeu);
+        env.getEnnemis().addListener(listenE);
 
+        this.env.ajouterEnnemisAleatoirement(50);
         panneauDeJeu.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene != null) {
                 newScene.setOnKeyPressed(this::gererTouchePressee);
@@ -49,6 +50,9 @@ public class Controleur implements Initializable {
 
         initAnimation();
         gameLoop.play();
+
+
+
     }
 
     @FXML
@@ -56,21 +60,21 @@ public class Controleur implements Initializable {
         System.out.println("Touche pressée: " + event.getCode());
         switch (event.getCode()) {
             case Z:
-                personnage.deplacerHaut();
+                link.deplacerHaut();
                 break;
             case Q:
-                personnage.deplacerGauche();
+                link.deplacerGauche();
                 break;
             case S:
-                personnage.deplacerBas();
+                link.deplacerBas();
                 break;
             case D:
-                personnage.deplacerDroite();
+                link.deplacerDroite();
                 break;
             default:
                 return;
         }
-        System.out.println("Position du personnage: x=" + personnage.getX() + ", y=" + personnage.getY());
+        System.out.println("Position du personnage: x=" + link.getX() + ", y=" + link.getY());
     }
 
     private void initAnimation() {
@@ -79,7 +83,9 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.1),
-                (ev ->{})
+                (ev ->{
+                    env.unTour();
+                })
         );
         gameLoop.getKeyFrames().add(kf);
     }
