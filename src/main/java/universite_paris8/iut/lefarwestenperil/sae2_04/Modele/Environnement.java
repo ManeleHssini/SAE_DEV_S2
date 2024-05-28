@@ -95,6 +95,7 @@ public class Environnement {
             ennemi.setX(x);
             ennemi.setY(y);
             ennemis.add(ennemi);
+            ajouterBarreDeVie(ennemi.getBarreDeVie());
         }
     }
 
@@ -108,6 +109,13 @@ public class Environnement {
         }
         this.tours++;
     }
+    public ObservableList<BarreDeVie> getBarreDeVies() {
+        return barreDeVies;
+    }
+    public void ajouterBarreDeVie(BarreDeVie b) {
+        barreDeVies.add(b);
+    }
+
 
     /**
      * Retourne la liste observable des ennemis.
