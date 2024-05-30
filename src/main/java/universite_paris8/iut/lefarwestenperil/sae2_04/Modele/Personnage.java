@@ -37,6 +37,30 @@ public class Personnage {
         this.terrain = terrain;
     }
 
+    public int getTailleTuile() {
+        return tailleTuile;
+    }
+
+    public int getPointVie() {
+        return pointVie;
+    }
+
+    public int getPointAttaque() {
+        return pointAttaque;
+    }
+
+    public int getPointDefense() {
+        return pointDefense;
+    }
+
+    public Environnement getEnv() {
+        return env;
+    }
+
+    public int getVitesseDeplacement() {
+        return vitesseDeplacement;
+    }
+
     public IntegerProperty xProperty() {
         return x;
     }

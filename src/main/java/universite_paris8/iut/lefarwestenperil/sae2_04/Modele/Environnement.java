@@ -17,6 +17,7 @@ public class Environnement {
     private ObservableList<BarreDeVie> barreDeVies;
     // Propriété pour le nombre d'ennemis
     private IntegerProperty nombreEnnemis;
+    private Link link;
     // Compteur de tours
     private int tours;
     // Terrain sur lequel évoluent les ennemis
@@ -26,12 +27,13 @@ public class Environnement {
      * Constructeur pour initialiser l'environnement avec le terrain donné.
      * @param terrain le terrain sur lequel les ennemis se déplaceront
      */
-    public Environnement(Terrain terrain) {
+    public Environnement(Terrain terrain, Link link) {
         this.ennemis = FXCollections.observableArrayList();
         this.barreDeVies = FXCollections.observableArrayList();
         this.tours = 0;
         this.terrain = terrain;
         this.nombreEnnemis = new SimpleIntegerProperty(0);
+        this.link=link;
     }
 
     /**
@@ -76,20 +78,22 @@ public class Environnement {
      */
     private void placerEnnemis(Random rand, int nombreEnnemis, String typeEnnemi, int minY, int maxY, int minX, int maxX) {
         for (int i = 0; i < nombreEnnemis; i++) {
-            int x, y;
-            // Génère des positions aléatoires jusqu'à ce qu'une position marchable soit trouvée
-            do {
-                x = minX * 32 + rand.nextInt((maxX - minX) * 32);
-                y = minY * 32 + rand.nextInt((maxY - minY) * 32);
-            } while (!terrain.estMarchable(y / 32, x / 32));
-
-            // Crée un nouvel ennemi du type spécifié
+            int x, y, largeurImage, hauteurImage;
             Ennemi ennemi;
+            // Crée un nouvel ennemi du type spécifié
             if (typeEnnemi.equals("Cowboy")) {
                 ennemi = new Cowboy(terrain);
             } else {
                 ennemi = new Dragon(terrain);
             }
+            largeurImage = ennemi.getLargeurImage();
+            hauteurImage = ennemi.getHauteurImage();
+
+            // Génère des positions aléatoires jusqu'à ce qu'une position marchable soit trouvée
+            do {
+                x = minX * 32 + rand.nextInt((maxX - minX) * 32);
+                y = minY * 32 + rand.nextInt((maxY - minY) * 32);
+            } while (!terrain.estMarchable(y / 32, x / 32) || !terrain.estMarchable((y + hauteurImage - 1) / 32, (x + largeurImage - 1) / 32));
 
             // Définit la position de l'ennemi et l'ajoute à la liste
             ennemi.setX(x);
@@ -99,23 +103,32 @@ public class Environnement {
         }
     }
 
+    public void ajouterBarreDeVie(BarreDeVie b) {
+        barreDeVies.add(b);
+    }
+
     /**
      * Effectue un tour de jeu, déplaçant chaque ennemi sur le terrain.
      */
     public void unTour() {
         for (int i = 0; i < ennemis.size(); i++) {
             Ennemi e = ennemis.get(i);
-            e.deplacerEnCarre();
+            if(e.detectionLink(link)){
+                e.seDeplace();
+            }else{
+                e.deplacerEnCarre();
+            }
+            e.getBarreDeVie().setX(e.getX());
+            e.getBarreDeVie().setY(e.getY());
+            e.getBarreDeVie().setVie(e.getPointVie());
+            e.getBarreDeVie().miseAJourVieTotale();
         }
         this.tours++;
     }
+
     public ObservableList<BarreDeVie> getBarreDeVies() {
         return barreDeVies;
     }
-    public void ajouterBarreDeVie(BarreDeVie b) {
-        barreDeVies.add(b);
-    }
-
 
     /**
      * Retourne la liste observable des ennemis.
