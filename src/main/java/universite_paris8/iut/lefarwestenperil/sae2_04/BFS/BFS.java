@@ -26,18 +26,18 @@ public class BFS {
 
         private void algoBFS() {
             LinkedList<TilePane> fifo = new LinkedList<>();
-            // TODO
+
             predecesseurs.put(source, null);
             fifo.add(source);
             while (!fifo.isEmpty()) {
                 TilePane courant = fifo.poll();
-                for (TilePane voisin : this.terrain.adjacents(courant)) {
+              /*  for (TilePane voisin : this.terrain.adjacents(courant)) {
                     if (!predecesseurs.containsKey(voisin)) {
                         predecesseurs.put(voisin, courant);
                         fifo.add(voisin);
                         parcours.add(voisin);
                     }
-                }
+                }*/
             }
         }
 }

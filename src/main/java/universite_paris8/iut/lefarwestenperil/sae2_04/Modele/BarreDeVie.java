@@ -66,7 +66,6 @@ public class BarreDeVie {
      */
     public void setVie(double vie) {
         this.vie = vie;
-        miseAJourVieTotale(); // Ajouté pour mettre à jour la vie totale lorsqu'on change la vie actuelle
     }
 
     /**

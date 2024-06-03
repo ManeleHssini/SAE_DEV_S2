@@ -24,6 +24,7 @@ public class Controleur implements Initializable {
     @FXML
     private TilePane tuile;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         terrain = new Terrain();
@@ -37,6 +38,8 @@ public class Controleur implements Initializable {
         tv.creerCarte();
 
         linkVue.creerLink(link);
+        ListChangeListener<BarreDeVie> listenB = new ListObsBarreDeVie(panneauDeJeu);
+        env.getBarreDeVies().addListener(listenB);
 
         ListChangeListener<Ennemi> listenE = new ListObsEnnemis(panneauDeJeu);
         env.getEnnemis().addListener(listenE);
@@ -54,6 +57,7 @@ public class Controleur implements Initializable {
 
 
     }
+
 
     @FXML
     private void gererTouchePressee(KeyEvent event) {
