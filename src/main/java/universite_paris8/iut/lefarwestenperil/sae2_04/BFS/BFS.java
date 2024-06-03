@@ -48,14 +48,17 @@ public class BFS {
             tuile = parents.get(tuile);
         }
 
+        // Remove the last tile if the path length is greater than 1
+        if (chemin.size() > 1) {
+            chemin.remove(chemin.size() - 1);
+        }
+
         return chemin;
     }
 
     private static boolean isValidMove(int[][] terrain, int x, int y) {
         int ligne = terrain.length;
         int colonne = terrain[0].length;
-        return x >= 0 && x < ligne && y >= 0 && y < colonne && (terrain[x][y] == 1 || terrain[x][y] == 2);
+        return x >= 0 && x < ligne && y >= 0 && y < colonne && (terrain[x][y] == 0);
     }
-
-
 }

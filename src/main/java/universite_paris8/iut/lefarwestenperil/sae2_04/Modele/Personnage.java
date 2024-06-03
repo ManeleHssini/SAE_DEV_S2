@@ -30,11 +30,14 @@ public class Personnage {
         this.vitesseDeplacement=4;
     }
 
-
     public Personnage(int x, int y, Terrain terrain) {
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
         this.terrain = terrain;
+    }
+
+    public IntegerProperty vieProperty(){
+        return new SimpleIntegerProperty(pointVie);
     }
 
     public int getTailleTuile() {
@@ -99,7 +102,7 @@ public class Personnage {
         e.recevoirDegats(degat);
 
     }
-    private void recevoirDegats(int pointsDegats) {
+    public void recevoirDegats(int pointsDegats) {
         int degatReel = pointsDegats - this.pointDefense;
         System.out.println("degat reel :" + degatReel);
         if (degatReel > 0) {
@@ -109,6 +112,7 @@ public class Personnage {
                 this.pointVie = 0;
             }
         }
+        System.out.println(pointVie);
     }
 
     public Arme getArmeActuelle() {

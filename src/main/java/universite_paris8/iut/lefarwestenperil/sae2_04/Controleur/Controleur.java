@@ -1,17 +1,22 @@
 package universite_paris8.iut.lefarwestenperil.sae2_04.Controleur;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 import universite_paris8.iut.lefarwestenperil.sae2_04.Modele.*;
-import javafx.scene.layout.Pane;
+import universite_paris8.iut.lefarwestenperil.sae2_04.Vue.*;
+
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.scene.input.KeyEvent;
-import universite_paris8.iut.lefarwestenperil.sae2_04.Vue.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Controleur implements Initializable {
     private Terrain terrain;
@@ -23,11 +28,16 @@ public class Controleur implements Initializable {
     private Pane panneauDeJeu;
     @FXML
     private TilePane tuile;
+    private Scale scaleTransform;
+    @FXML
+    private HBox vieBox;
+
+    private ListCoeurVue coeurVue;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         terrain = new Terrain();
-        link = new Link( terrain);
+        link = new Link(terrain,8);
 
         env = new Environnement(terrain, link);
 
@@ -35,7 +45,6 @@ public class Controleur implements Initializable {
         linkVue = new LinkVue(panneauDeJeu);
 
         tv.creerCarte();
-
         linkVue.creerLink(link);
 
         ListChangeListener<BarreDeVie> listenB = new ListObsBarreDeVie(panneauDeJeu);
@@ -51,11 +60,22 @@ public class Controleur implements Initializable {
             }
         });
 
+
+        scaleTransform = new Scale();
+        panneauDeJeu.getTransforms().add(scaleTransform);
+        scaleTransform.setPivotX(link.getX()-200);
+        scaleTransform.setPivotY(link.getY()-200);
+        setScale(1);
+
+        coeurVue = new ListCoeurVue(link, vieBox);
+
         initAnimation();
         gameLoop.play();
+    }
 
-
-
+    private void setScale(double scale) {
+        scaleTransform.setX(scale);
+        scaleTransform.setY(scale);
     }
 
     @FXML
@@ -77,6 +97,7 @@ public class Controleur implements Initializable {
             default:
                 return;
         }
+        miseAJourZoom();
         System.out.println("Position du personnage: x=" + link.getX() + ", y=" + link.getY());
     }
 
@@ -94,12 +115,23 @@ public class Controleur implements Initializable {
     private void initAnimation() {
         gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
+        AtomicInteger i = new AtomicInteger();
 
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.1),
-                (ev ->{
+                ev -> {
                     env.unTour();
-                })
+                    miseAJourZoom();
+
+                    i.getAndIncrement();
+                    System.out.println(i.get());
+                    if (i.get() == 30) {
+                        link.recevoirDegats(2);
+                        i.set(0);
+                    }
+                    coeurVue.mettreAJourCoeurs(link.getPointVie());
+
+                }
         );
         gameLoop.getKeyFrames().add(kf);
     }
