@@ -30,6 +30,8 @@ public abstract class Ennemi extends Personnage {
     private int hauteurImage;
     private BFS bfs;
     private List<Point> chemin;
+    private boolean peutTraverserObstacles;
+
 
     /**
      * Constructeur pour initialiser un Ennemi avec les paramètres donnés.
@@ -43,18 +45,19 @@ public abstract class Ennemi extends Personnage {
      * * @param largeurImage la largeur de l'image de l'ennemi
      * * @param hauteurImage la hauteur de l'image de l'ennemi
      */
-    public Ennemi(int x, int y, int pointVie, int pointAttaque, int pointDefense, Terrain terrain, int vitesse, int portee, int largeurImage, int hauteurImage) {
+    public Ennemi(int x, int y, int pointVie, int pointAttaque, int pointDefense, Terrain terrain, int vitesse, int portee, boolean peutTraverserObstacles, int largeurImage, int hauteurImage) {
         super(x, y, pointVie, pointAttaque, pointDefense, terrain);
         this.vitesse = vitesse;
         this.id = "E" + compteurId;
         compteurId++;
-        this.barreDeVie = new BarreDeVie(getPointVie(), pointVie, getId(), getX(), getY());
+        this.barreDeVie = new BarreDeVie(pointVie, pointVie, getId(), getX(), getY());
         this.largeurImage = largeurImage;
         this.hauteurImage = hauteurImage;
         this.pixelsParcourus = 0;
         this.directionActuelle = 0;
         this.portee = portee;
         this.bfs = new BFS();
+        this.peutTraverserObstacles = peutTraverserObstacles;
     }
 
     public int getVitesse() {
@@ -122,34 +125,6 @@ public abstract class Ennemi extends Personnage {
         return chemin;
     }
 
-
-    public void seDeplace() {
-        if (tuileActuel < getCheminCourt().size() - 1) {
-            Point prochaineTuile = getCheminCourt().get(tuileActuel + 1);
-            double prochainePosX = prochaineTuile.getY() * 32;
-            double prochainePosY = prochaineTuile.getX() * 32;
-
-            double deltaX = prochainePosX - getX();
-            double deltaY = prochainePosY - getY();
-
-            double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
-            if (distance <= vitesse) {
-                // Si la distance restante est inférieure ou égale à la vitesse, on arrive à la tuile suivante
-                setX((int) prochainePosX);
-                setY((int) prochainePosY);
-                tuileActuel++;
-            } else {
-                // Sinon, on se déplace vers la prochaine tuile en fonction de la vitesse
-                double deplacementX = (deltaX / distance) * vitesse;
-                double deplacementY = (deltaY / distance) * vitesse;
-
-                setX((int) (getX() + deplacementX));
-                setY((int) (getY() + deplacementY));
-            }
-        }
-    }
-
     /**
      * Retourne l'identifiant unique de l'ennemi.
      * @return l'identifiant unique de l'ennemi
@@ -174,10 +149,92 @@ public abstract class Ennemi extends Personnage {
         return hauteurImage;
     }
 
+
+    public void setPeutTraverserObstacles(boolean peutTraverserObstacles) {
+        this.peutTraverserObstacles = peutTraverserObstacles;
+    }
+
+    public boolean getPeutTraverserObstacles() {
+        return peutTraverserObstacles;
+    }
+
+
+    public void seDeplacer() {
+        if (chemin.isEmpty()) {
+            return; // Aucun déplacement à effectuer
+        }
+
+        Point prochaineTuile = chemin.get(chemin.size() - 1);
+        int deltaX = prochaineTuile.x * 32 - getX();
+        int deltaY = prochaineTuile.y * 32 - getY();
+
+        int stepX = 0;
+        int stepY = 0;
+
+        // Calcul du déplacement en X
+        if (deltaX != 0) {
+            stepX = (deltaX > 0 ? vitesse : -vitesse);
+            if (Math.abs(deltaX) < vitesse) {
+                stepX = deltaX;
+            }
+        }
+
+        // Calcul du déplacement en Y
+        if (deltaY != 0) {
+            stepY = (deltaY > 0 ? vitesse : -vitesse);
+            if (Math.abs(deltaY) < vitesse) {
+                stepY = deltaY;
+            }
+        }
+
+        // Tentative de déplacement en diagonale
+        if (stepX != 0 && stepY != 0) {
+            if (verifierMarchabilite(getX() + stepX, getY() + stepY)) {
+                setX(getX() + stepX);
+                setY(getY() + stepY);
+            } else if (verifierMarchabilite(getX() + stepX, getY())) {
+                setX(getX() + stepX);
+            } else if (verifierMarchabilite(getX(), getY() + stepY)) {
+                setY(getY() + stepY);
+            }
+        } else if (stepX != 0) {
+            if (verifierMarchabilite(getX() + stepX, getY())) {
+                setX(getX() + stepX);
+            }
+        } else if (stepY != 0) {
+            if (verifierMarchabilite(getX(), getY() + stepY)) {
+                setY(getY() + stepY);
+            }
+        }
+
+        // Vérifier si l'ennemi a atteint la prochaine tuile
+        deltaX = prochaineTuile.x * 32 - getX();
+        deltaY = prochaineTuile.y * 32 - getY();
+        if (Math.abs(deltaX) < vitesse && Math.abs(deltaY) < vitesse) {
+            setX(prochaineTuile.x * 32);
+            setY(prochaineTuile.y * 32);
+            chemin.remove(chemin.size() - 1);
+        }
+    }
+
+    private boolean verifierMarchabilite(int x, int y) {
+        if (peutTraverserObstacles) {
+            return true;
+        }
+
+        int caseX1 = x / 32;
+        int caseY1 = y / 32;
+        int caseX2 = (x + largeurImage - 1) / 32;
+        int caseY2 = (y + hauteurImage - 1) / 32;
+
+        return getTerrain().estMarchable(caseY1, caseX1) && getTerrain().estMarchable(caseY2, caseX2);
+    }
+
+
     public boolean detectionLink(Link link) {
         double distance = Math.sqrt(Math.pow(link.getX() - getX() , 2) + Math.pow(link.getY() - getY(), 2));
         if(distance <= portee) {
-            this.chemin = BFS.bfs(getTerrain().getTab(),new Point(getX(), getY()), new Point(link.getX(), link.getY()));
+            this.chemin = BFS.bfs(getTerrain().getTab(),new Point((getX()+8)/32, (getY()+10)/32), new Point(link.getX()/32, link.getY()/32));
             for (Point tuile : chemin) {
                 System.out.println(tuile);
             }

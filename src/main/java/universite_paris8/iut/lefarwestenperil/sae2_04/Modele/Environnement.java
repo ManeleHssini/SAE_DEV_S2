@@ -114,13 +114,13 @@ public class Environnement {
         for (int i = 0; i < ennemis.size(); i++) {
             Ennemi e = ennemis.get(i);
             if(e.detectionLink(link)){
-                e.seDeplace();
+                e.seDeplacer();
             }else{
                 e.deplacerEnCarre();
             }
             e.getBarreDeVie().setX(e.getX());
             e.getBarreDeVie().setY(e.getY());
-            e.getBarreDeVie().setVie(e.getPointVie());
+            //e.getBarreDeVie().setVie(e.getPointVie());
             e.getBarreDeVie().miseAJourVieTotale();
         }
         this.tours++;

@@ -80,6 +80,17 @@ public class Controleur implements Initializable {
         System.out.println("Position du personnage: x=" + link.getX() + ", y=" + link.getY());
     }
 
+
+    public void miseAJourZoom(){
+        double paneWidth = panneauDeJeu.getWidth();
+        double paneHeight = panneauDeJeu.getHeight();
+        double linkX = link.getX();
+        double linkY = link.getY();
+
+        panneauDeJeu.setTranslateX(-linkX * scaleTransform.getX() + paneWidth / 2);
+        panneauDeJeu.setTranslateY(-linkY * scaleTransform.getY() + paneHeight / 2);
+}
+
     private void initAnimation() {
         gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
