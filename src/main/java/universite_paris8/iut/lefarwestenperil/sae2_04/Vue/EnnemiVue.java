@@ -34,17 +34,11 @@ public class EnnemiVue extends PersonnageVue{
                 iv2 = new ImageView(imageCb);
                 iv2.setId(ennemi.getId());
         }
-        ProgressBar barreDeVie =new ProgressBar();
-        barreDeVie.setPrefWidth(32);
-        barreDeVie.setPrefHeight(5);
+
         iv2.translateXProperty().bind(ennemi.xProperty());
         iv2.translateYProperty().bind(ennemi.yProperty());
         Group group = new Group(iv2);
-        group.getChildren().add(barreDeVie);
-        barreDeVie.translateXProperty().bind(ennemi.xProperty());
-        ennemi.yProperty().addListener((observableValue, number, t1) -> {
-            barreDeVie.setLayoutY(ennemi.getY()-20);
-        });
+
         getPanneauDeJeu().getChildren().add(group);
 
 

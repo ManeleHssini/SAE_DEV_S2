@@ -32,7 +32,7 @@ public class Terrain {
                 cpt++;
                 ligne= reader.readLine();
             }
-            tab = lignes.toArray(new int[0][]); // Convert List to Array
+            tab = lignes.toArray(new int[0][]); 
 
         } catch (IOException e) {
             e.printStackTrace();

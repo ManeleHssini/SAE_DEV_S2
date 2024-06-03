@@ -1,13 +1,16 @@
 package universite_paris8.iut.lefarwestenperil.sae2_04.Modele;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 public class Link extends Personnage{
 
-
-    public Link(Terrain terrain) {
-        super(200, 200,5,2,1, terrain);
+    public Link(Terrain terrain, int pointsDeVie) {
+        super(200, 200,16,2,1, terrain);
         super.ramasserArme(new Tomahawk());
 
     }
+
 
     public void deplacer(int dx, int dy) {
         int newX = getX() + dx;
